@@ -13,3 +13,18 @@ for(let v=0;v<=50;v+=10)svg+='<line class="grid" x1="55" x2="780" y1="'+y(v)+'" 
 const colors=['#176357','#af4a28','#626c73'];data.timeline.series.forEach((s,i)=>{svg+='<polyline fill="none" stroke="'+colors[i]+'" stroke-width="3" points="'+s[1].map((v,j)=>x(dates[j])+','+y(v)).join(' ')+'"/>';s[1].forEach((v,j)=>{const offset=i===2?18:-11;svg+='<circle cx="'+x(dates[j])+'" cy="'+y(v)+'" r="4" fill="'+colors[i]+'"/><text class="svg-label" fill="'+colors[i]+'" text-anchor="middle" x="'+x(dates[j])+'" y="'+(y(v)+offset)+'">'+v+'</text>';});});dates.forEach((d,i)=>svg+='<text class="svg-text" text-anchor="middle" x="'+x(d)+'" y="330">'+data.timeline.dates[i].slice(0,4)+'</text>');svg+='</svg>';
 document.querySelector('#timeline').innerHTML='<div class="chart-scroll">'+svg+'</div><p class="mobile-hint note">На телефоне график можно прокрутить по горизонтали.</p>'+table(['Дата',...data.timeline.series.map(x=>x[0]+', %')],data.timeline.dates.map((d,i)=>[d,...data.timeline.series.map(s=>s[1][i])]));
 function progress(){const h=document.documentElement;document.querySelector('.progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100||0)+'%';}window.addEventListener('scroll',progress,{passive:true});progress();window.articleData=data;
+
+if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -24px 0px'});
+  document.querySelectorAll('.chapter-head, figure, .scenario, .quote').forEach(element => {
+    element.classList.add('reveal-ready');
+    revealObserver.observe(element);
+  });
+}
