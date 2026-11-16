@@ -3,3 +3,15 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{nav,.choices,.progress,.hero-bottom a,.text-button,.skip{display:none}body{background:white;color:black;font-size:11pt}.wrap{padding-left:0;padding-right:0;max-width:100%}.hero{padding-top:20px}h1{font-size:48pt}h2{font-size:26pt}.chapter{padding-top:25px}.narrow{max-width:100%;margin:15px 0}.experiment,.method,.age-section{background:white;color:black}.experiment .eyebrow,.method .eyebrow{color:#444}figure{break-inside:avoid}.scenario{break-inside:avoid}.sources a{overflow-wrap:anywhere}.segments{display:none}.disclosure{font-size:9pt}.method-grid p,.method-footer,.experiment small{color:#444}a{color:black}.sources{page-break-before:always}.big-stat strong{font-size:80pt}}
 
 .chart-scroll{overflow-x:auto}.mobile-hint{display:none}@media(max-width:700px){.chart-scroll svg{min-width:650px}.mobile-hint{display:block}}
+
+/* Quiet layering between narrative sections */
+.experiment{position:relative;z-index:1;border-radius:26px;box-shadow:0 16px 35px -28px rgba(16,42,33,.42)}
+.chapter-before-overlap{padding-bottom:76px}
+.age-section{position:relative;z-index:2;margin-top:-26px;border-radius:32px 32px 0 0;box-shadow:0 -12px 30px -26px rgba(23,53,41,.35)}
+.method{position:relative;padding-bottom:96px;border-radius:30px 30px 0 0}
+.overlap-after-dark{position:relative;z-index:2;margin-top:-28px;border-radius:30px 30px 0 0;background:var(--paper)}
+.reveal-ready{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.65,.3,1)}
+.reveal-ready.is-visible{opacity:1;transform:none}
+@media(max-width:700px){.experiment{border-radius:18px}.age-section{margin-top:-16px;border-radius:22px 22px 0 0}.chapter-before-overlap{padding-bottom:52px}.method{border-radius:22px 22px 0 0;padding-bottom:70px}.overlap-after-dark{margin-top:-20px;border-radius:22px 22px 0 0}}
+@media(prefers-reduced-motion:reduce){.reveal-ready{opacity:1;transform:none;transition:none}}
+@media print{.reveal-ready{opacity:1;transform:none;transition:none}.age-section,.overlap-after-dark{margin-top:0;border-radius:0;box-shadow:none}.experiment,.method{border-radius:0;box-shadow:none}}
